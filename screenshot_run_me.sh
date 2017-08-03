@@ -39,8 +39,9 @@ function takeScreenshot() {
   #  ADBEXEC="./adb-linux"
   #fi
   ADBEXEC="adb"
-  DATA_PATH="/data/local"
+  #DATA_PATH="/data/local"
   #DATA_PATH="/data"
+  DATA_PATH="/cache"
   $ADBEXEC root
   #$ADBEXEC shell mount /data
   $ADBEXEC push fb2png $DATA_PATH
@@ -61,7 +62,7 @@ function takeScreenshot() {
   echo "  ******************************************************"
   $ADBEXEC shell sync
   #$ADBEXEC shell umount /data
-  sleep 5
+  sleep 3
 }
 
 USERINPUT="-"

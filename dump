@@ -2,5 +2,7 @@
 #
 #
 #
-mkdir -p /data/local/ScreenShots
-/data/local/fb2png /data/local/ScreenShots/Screenshot_`date +%Y_%m_%d_%H.%M.%S`.png
+DATA_PATH="/cache"
+
+mkdir -p $DATA_PATH/ScreenShots
+$DATA_PATH/fb2png $DATA_PATH/ScreenShots/Screenshot_`date +%Y_%m_%d_%H.%M.%S`.png
