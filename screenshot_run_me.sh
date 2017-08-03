@@ -32,22 +32,26 @@ if [ "$DEVICE" == "" ]; then
 fi
 
 function takeScreenshot() {
-  OS=$(uname)
-  if [ "$OS" == "Darwin" ]; then
-    ADBEXEC="./adb.osx"
-  else
-    ADBEXEC="./adb-linux"
-  fi
-  $ADBEXEC shell mount /data
-  $ADBEXEC push fb2png /data/local
-  $ADBEXEC push dump /data/local
-  $ADBEXEC shell chmod 755 /data/local/fb2png
-  $ADBEXEC shell chmod 755 /data/local/dump
-  $ADBEXEC shell /data/local/dump
-  $ADBEXEC pull /data/local/ScreenShots
-  $ADBEXEC shell rm /data/local/fb2png
-  $ADBEXEC shell rm /data/local/dump
-  $ADBEXEC shell rm -r /data/local/ScreenShots
+  #OS=$(uname)
+  #if [ "$OS" == "Darwin" ]; then
+  #  ADBEXEC="./adb.osx"
+  #else
+  #  ADBEXEC="./adb-linux"
+  #fi
+  ADBEXEC="adb"
+  DATA_PATH="/data/local"
+  #DATA_PATH="/data"
+  $ADBEXEC root
+  #$ADBEXEC shell mount /data
+  $ADBEXEC push fb2png $DATA_PATH
+  $ADBEXEC push dump $DATA_PATH 
+  $ADBEXEC shell chmod 755 $DATA_PATH/fb2png
+  $ADBEXEC shell chmod 755 $DATA_PATH/dump
+  $ADBEXEC shell sh $DATA_PATH/dump
+  $ADBEXEC pull $DATA_PATH/ScreenShots
+  $ADBEXEC shell rm $DATA_PATH/fb2png
+  $ADBEXEC shell rm $DATA_PATH/dump
+  $ADBEXEC shell rm -rf $DATA_PATH/ScreenShots
   echo ""
   echo ""
   echo "  ******************************************************"
@@ -56,7 +60,8 @@ function takeScreenshot() {
   echo "  *                                                    *"
   echo "  ******************************************************"
   $ADBEXEC shell sync
-  $ADBEXEC shell umount /data
+  #$ADBEXEC shell umount /data
+  sleep 5
 }
 
 USERINPUT="-"
